@@ -1,0 +1,45 @@
+<div class="page-container">
+  <div class="order-history-header">
+    <h1>Mi Historial de Pedidos</h1>
+    <p>Aquí puedes ver el detalle de todas tus compras.</p>
+  </div>
+
+  <div *ngIf="isLoading" class="loader">Cargando tus pedidos...</div>
+
+  <div *ngIf="!isLoading && orders">
+    <div *ngIf="orders.length === 0; else ordersTable" class="empty-history-message">
+      <p>Aún no has realizado ninguna compra. ¡Es un buen momento para explorar!</p>
+      <a routerLink="/products" class="btn-primary">Ver Catálogo</a>
+    </div>
+
+    <ng-template #ordersTable>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID Pedido</th>
+              <th>Fecha</th>
+              <th>Total</th>
+              <th>Estado</th>
+              <th class="actions-header">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of orders">
+              <td>#{{ order.id }}</td>
+              <td>{{ order.fechaPedido | date:'dd/MM/yyyy h:mm a' }}</td>
+              <td>{{ order.total | currency:'S/.' }}</td>
+              <td><span class="status-badge" [ngClass]="order.estado.toLowerCase()">{{ order.estado }}</span></td>
+              <td class="actions">
+                <button class="btn-secondary" (click)="downloadInvoice(order.id)">
+                  Descargar Boleta
+                </button>
+                <!-- Aquí podrías añadir un botón para ver detalles si tuvieras una vista de detalle de pedido -->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-template>
+  </div>
+</div>

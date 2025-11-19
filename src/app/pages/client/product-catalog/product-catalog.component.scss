@@ -1,0 +1,219 @@
+// Variables de Colores
+$primary-color: #6a1b9a;
+$secondary-color: #ffca28;
+$light-bg: #f5f3f7;
+$border-color: #e0e0e0;
+$text-color: #333;
+$danger-color: #ef4444;
+$warning-color: #f59e0b;
+
+.page-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.catalog-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  h1 { font-weight: 700; color: $primary-color; }
+  p { color: #6b7280; }
+}
+
+.catalog-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Filtros
+.filters-sidebar {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 2rem;
+
+  h4 {
+    margin-top: 0;
+    border-bottom: 1px solid $border-color;
+    padding-bottom: 1rem;
+    color: $primary-color;
+  }
+}
+
+.filter-group {
+  margin-bottom: 1.5rem;
+  label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.75rem;
+    color: $text-color;
+  }
+  .search-box {
+    position: relative;
+    .search-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+    }
+  }
+  input, select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    font-size: 1rem;
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
+    }
+  }
+}
+
+// Grid de Productos
+.products-grid {
+  .loader, .no-results {
+    padding: 4rem;
+    text-align: center;
+    color: #888;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+// Estilos de la tarjeta de producto (reutilizados y mejorados)
+.product-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: popIn 0.5s ease-out forwards;
+  opacity: 0;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+  }
+
+  .product-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  
+  .product-image {
+    height: 200px; // Altura fija para las imágenes
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $light-bg;
+    
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain; // Asegura que la imagen se ajuste sin recortarse
+      transition: transform 0.3s ease;
+    }
+  }
+  
+  &:hover .product-image img {
+    transform: scale(1.05);
+  }
+
+  .product-info {
+    padding: 1rem 1.25rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .category {
+    font-size: 0.8rem;
+    color: $primary-color;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $text-color;
+    margin: 0 0 0.5rem 0;
+    flex-grow: 1;
+  }
+
+  .price {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #007bff; // Un azul para precios
+  }
+
+  .stock-info {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.5rem;
+
+    &.low-stock {
+      color: $warning-color;
+      font-weight: 600;
+    }
+    &.no-stock {
+      color: $danger-color;
+      font-weight: 700;
+    }
+  }
+
+  .product-actions {
+    padding: 1rem 1.25rem;
+    border-top: 1px solid $border-color;
+    text-align: center;
+  }
+
+  .action-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+
+    &:hover {
+      background-color: darken($primary-color, 5%);
+      transform: translateY(-2px);
+    }
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+  }
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}

@@ -1,0 +1,111 @@
+// ... (Tus variables de colores)
+
+.pos-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+// Columna Izquierda
+.pos-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.search-container {
+  position: relative;
+  .search-input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  .search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    z-index: 10;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  }
+  .result-item {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    &:hover { background-color: #f0f0f0; }
+  }
+}
+
+.cart-container {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  h4 { margin-top: 0; }
+}
+
+.cart-list {
+  list-style: none;
+  padding: 0;
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #eee;
+  }
+}
+
+.item-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  button {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    background: #f8f8f8;
+    cursor: pointer;
+  }
+}
+
+// Columna Derecha
+.pos-summary {
+  background: #f5f3f7;
+  padding: 1.5rem;
+  border-radius: 8px;
+  position: sticky;
+  top: 2rem;
+  h4 { margin-top: 0; }
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 2rem 0;
+  span { font-size: 1.2rem; font-weight: 600; }
+  .total-amount { font-size: 2.5rem; font-weight: 700; color: #4f46e5; }
+}
+
+.btn-finalize-sale {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  background-color: #10b981;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  &:disabled { background-color: #999; }
+}

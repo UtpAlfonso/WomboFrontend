@@ -1,0 +1,89 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>Gestión de Pedidos</h1>
+    <p>Visualiza y actualiza el estado de las órdenes de compra de los clientes.</p>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="orders-list">
+      <div *ngIf="isLoading" class="loader">Cargando pedidos...</div>
+
+      <div class="table-container" *ngIf="!isLoading">
+        <table>
+          <thead>
+            <tr>
+              <th>ID Pedido</th>
+              <th>Fecha</th>
+              <th>Total</th>
+              <th>Estado</th>
+              <th class="actions-header">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of orders" (click)="viewOrderDetails(order)" [class.selected]="selectedOrder?.id === order.id">
+              <td>#{{ order.id }}</td>
+              <td>{{ order.fechaPedido | date:'dd/MM/yyyy h:mm a' }}</td>
+              <td>{{ order.total | currency:'S/.' }}</td>
+              <td>
+                <select class="status-select" (change)="onStatusChange(order.id, $event)" (click)="$event.stopPropagation()">
+                  <option *ngFor="let status of orderStatuses" [value]="status" [selected]="status === order.estado">
+                    {{ status }}
+                  </option>
+                </select>
+              </td>
+              <td class="actions">
+                <button class="btn-secondary" (click)="viewOrderDetails(order); $event.stopPropagation()">
+                  Ver Detalles
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="orders.length === 0">
+              <td colspan="5" class="no-data">No hay pedidos para gestionar.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Panel lateral de detalles -->
+    <div class="details-panel" [class.visible]="selectedOrder">
+      <div *ngIf="selectedOrder">
+        <div class="panel-header">
+          <h3>Detalles del Pedido #{{ selectedOrder.id }}</h3>
+          <button class="close-button" (click)="closeDetailsPanel()">&times;</button>
+        </div>
+        <div class="panel-body">
+          <div class="detail-group">
+            <strong>Fecha:</strong>
+            <span>{{ selectedOrder.fechaPedido | date:'full' }}</span>
+          </div>
+          <div class="detail-group">
+            <strong>Total:</strong>
+            <span class="total-value">{{ selectedOrder.total | currency:'S/.' }}</span>
+          </div>
+          <div class="detail-group">
+            <strong>Estado Actual:</strong>
+            <span class="status-badge" [ngClass]="selectedOrder.estado.toLowerCase()">{{ selectedOrder.estado }}</span>
+          </div>
+          <div class="detail-group">
+            <strong>Dirección de Envío:</strong>
+            <p>{{ selectedOrder.direccionEnvio }}</p>
+          </div>
+          
+          <hr>
+          
+          <h4>Productos:</h4>
+          <ul class="product-list">
+            <li *ngFor="let item of selectedOrder.detalles">
+              <span>{{ item.productoNombre }}</span>
+              <span>{{ item.cantidad }} x {{ item.precioUnitario | currency:'S/.' }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div *ngIf="!selectedOrder" class="no-selection">
+        <p>Selecciona un pedido para ver sus detalles.</p>
+      </div>
+    </div>
+  </div>
+</div>

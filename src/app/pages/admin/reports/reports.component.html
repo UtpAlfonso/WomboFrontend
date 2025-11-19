@@ -1,0 +1,115 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>Centro de Reportes</h1>
+    <p>Analiza el rendimiento de la tienda con métricas y visualizaciones clave.</p>
+  </div>
+
+  <!-- Formulario de Filtros -->
+  <div class="filter-card">
+    <form [formGroup]="filterForm" (ngSubmit)="generateReport()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="startDate">Fecha de Inicio</label>
+          <input id="startDate" type="date" formControlName="startDate">
+        </div>
+        <div class="form-group">
+          <label for="endDate">Fecha de Fin</label>
+          <input id="endDate" type="date" formControlName="endDate">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary" [disabled]="isLoading">
+            <span *ngIf="isLoading" class="spinner"></span>
+            {{ isLoading ? 'Generando...' : 'Generar Reporte' }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Contenedor de Resultados -->
+  <div class="results-container">
+    <!-- Estado de Carga -->
+    <div *ngIf="isLoading" class="loader-card">
+      <div class="spinner"></div>
+      <p>Generando reporte, por favor espera...</p>
+    </div>
+
+    <!-- Estado de Error -->
+    <div *ngIf="errorMessage && !isLoading" class="error-message">
+      <p><strong>Error:</strong> {{ errorMessage }}</p>
+    </div>
+
+    <!-- Estado de Éxito con Datos -->
+    <div *ngIf="report && !isLoading" class="report-content animate-fade-in">
+      
+      <!-- 1. Tarjetas de Resumen (KPIs) -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <span class="label">Total de Ventas</span>
+          <span class="value success">{{ report.totalVentas | currency:'S/.' }}</span>
+        </div>
+        <div class="kpi-card">
+          <span class="label">Pedidos Totales</span>
+          <span class="value">{{ report.numeroPedidos }}</span>
+        </div>
+        <div class="kpi-card">
+          <span class="label">Ticket Promedio</span>
+          <span class="value">
+            {{ (report.numeroPedidos > 0 ? (report.totalVentas / report.numeroPedidos) : 0) | currency:'S/.' }}
+          </span>
+        </div>
+      </div>
+      
+      <!-- 2. Contenedor para los Gráficos -->
+      <div class="charts-grid">
+        <!-- Gráfico de Barras: Ventas Diarias -->
+        <div class="chart-card">
+          <h4>Evolución de Ventas por Día</h4>
+          <div class="chart-container">
+            <canvas baseChart 
+              *ngIf="report.ventasPorDia.length > 0"
+              [data]="barChartData" 
+              [options]="barChartOptions" 
+              [type]="barChartType">
+            </canvas>
+            <div *ngIf="report.ventasPorDia.length === 0" class="no-chart-data">
+              No hay datos de ventas diarias para mostrar en este periodo.
+            </div>
+          </div>
+        </div>
+
+        <!-- Gráfico de Pastel y Tabla: Top Productos -->
+        <div class="chart-card">
+          <h4>Top 5 Productos Vendidos (por unidades)</h4>
+          <div class="chart-container pie-chart">
+            <canvas baseChart 
+              *ngIf="report.topProductosVendidos.length > 0"
+              [data]="pieChartData" 
+              [options]="pieChartOptions" 
+              [type]="pieChartType">
+            </canvas>
+            <div *ngIf="report.topProductosVendidos.length === 0" class="no-chart-data">
+              No hay datos de productos vendidos para mostrar.
+            </div>
+          </div>
+          <!-- Tabla de detalle para el gráfico de pastel -->
+          <div *ngIf="report.topProductosVendidos.length > 0" class="top-products-table">
+            <table>
+              <tbody>
+                <tr *ngFor="let product of report.topProductosVendidos.slice(0, 5); let i = index">
+                  <td>{{ i + 1 }}. {{ product.productName }}</td>
+                  <td class="text-right">{{ product.quantitySold }} uds.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mensaje Inicial -->
+    <div *ngIf="!report && !isLoading && !errorMessage" class="no-report">
+      <p>Selecciona un rango de fechas y haz clic en "Generar Reporte" para visualizar las estadísticas.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="page-container">
+  <!-- Usamos el pipe async para obtener los datos del usuario y pasarlos al template -->
+  <div *ngIf="currentUser$ | async as user; else loading">
+    <div class="profile-header">
+      <h1>Mi Perfil</h1>
+      <p>Hola, {{ user.nombre }}. Gestiona tu información personal.</p>
+    </div>
+
+    <div class="profile-card">
+      <div class="profile-item">
+        <label>Nombre Completo</label>
+        <span>{{ user.nombre }}</span>
+      </div>
+      <div class="profile-item">
+        <label>Correo Electrónico</label>
+        <span>{{ user.email }}</span>
+      </div>
+      <div class="profile-item">
+        <label>Roles</label>
+        <div class="roles-container">
+          <span *ngFor="let role of user.roles" class="role-badge">
+            {{ role.replace('ROLE_', '') }}
+          </span>
+        </div>
+      </div>
+      <div class="profile-actions">
+        <!-- El botón ahora llama a nuestro método openEditModal -->
+        <button class="btn-primary" (click)="openEditModal(user)">Editar Perfil</button>
+        <button class="btn-secondary" (click)="authService.logout()">Cerrar Sesión</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Template para el estado de carga inicial -->
+  <ng-template #loading>
+    <p>Cargando perfil...</p>
+  </ng-template>
+</div>
+
+<!-- ========== MODAL PARA EDITAR EL PERFIL (con CSS puro) ========== -->
+<div class="modal-overlay" *ngIf="isModalOpen" (click)="closeModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Editar mi Información</h3>
+      <button class="close-button" (click)="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input id="nombre" type="text" class="form-control" formControlName="nombre">
+        </div>
+        <div class="form-group">
+          <label for="apellido">Apellido</label>
+          <input id="apellido" type="text" class="form-control" formControlName="apellido">
+        </div>
+        <div class="form-group">
+          <label for="password">Nueva Contraseña (opcional)</label>
+          <input id="password" type="password" class="form-control" formControlName="password" placeholder="Dejar en blanco para no cambiar">
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" (click)="closeModal()">Cancelar</button>
+          <button type="submit" class="btn-primary" [disabled]="profileForm.invalid">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

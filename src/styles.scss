@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+/* ==========================================================================
+   Importación de Estilos Globales de Librerías (Método SASS Moderno)
+   ========================================================================== */
+
+// --- 1. BOOTSTRAP (Si quieres seguir usándolo) ---
+@import "bootstrap/scss/bootstrap";
+
+
+// --- 2. IMPORTACIONES DE PRIMENG (NUEVO MÉTODO OFICIAL) ---
+
+// a. Primero, importa las capas base de estilos de PrimeNG.
+//    Estas rutas son "virtuales" y el compilador de Angular las entiende.
+
+
+// b. Luego, importa la capa base de estilos de PrimeNG.
+
+
+// c. Finalmente, importa los ICONOS
+/* ==========================================================================
+   Tus Estilos Globales Personalizados
+   ========================================================================== */
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f3f4f6;
+  color: #111827;
+  // PrimeNG usa la variable --font-family para su tipografía.
+  // Es una buena práctica definirla aquí.
+  --font-family: 'Inter', sans-serif;
+}
+
+// Opcional: Pequeños ajustes para que PrimeNG y Bootstrap convivan mejor
+.card {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  border: none;
+  border-radius: 12px;
+}

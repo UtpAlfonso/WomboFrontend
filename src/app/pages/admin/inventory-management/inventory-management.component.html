@@ -1,0 +1,130 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>Gestión de Inventario</h1>
+    <button class="btn-primary" (click)="openCreateModal()">Añadir Nuevo Producto</button>
+  </div>
+
+  <div *ngIf="isLoading" class="loader">Cargando productos...</div>
+
+  <div class="table-container" *ngIf="!isLoading">
+    <table>
+      <thead>
+        <tr>
+          <th>SKU</th>
+          <th>Nombre</th>
+          <th>Categoría</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th class="actions-header">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td data-label="sku">{{ product.sku }}</td>
+          <td data-label="nombre">{{ product.nombre }}</td>
+          <td data-label="categoria">{{ product.categoriaNombre }}</td>
+          <td data-label="precio">{{ product.precio | currency:'S/.' }}</td>
+          <td data-label="stock">{{ product.stock }}</td>
+          <td class="actions">
+            <button class="btn-secondary" (click)="openEditModal(product)">Editar</button>
+            <button class="btn-danger" (click)="deleteProduct(product.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal para Crear/Editar Producto -->
+<div class="modal-overlay" *ngIf="isModalOpen" (click)="closeModal()">
+  <div class="modal-container large" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>{{ isEditMode ? 'Editar' : 'Nuevo' }} Producto</h3>
+      <button class="close-button" (click)="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <!-- El formulario ahora está dentro de un contenedor grid para separar imagen de datos -->
+      <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form-layout">
+
+        <!-- ========== 1. COLUMNA DE SUBIDA DE IMAGEN ========== -->
+        <div class="image-upload-column">
+          <div class="form-group">
+            <label>Imagen del Producto</label>
+            
+            <!-- Contenedor de la Vista Previa (cuando ya hay una imagen) -->
+  
+            <!-- Zona de Drag and Drop (cuando no hay imagen) -->
+            <div 
+              *ngIf="!imagePreview"
+              class="drop-zone"
+              (dragover)="onDragOver($event)"
+              (dragleave)="onDragLeave($event)"
+              (drop)="onDrop($event)"
+              [class.dragging]="isDragging"
+              (click)="fileInput.click()"> <!-- Abre el selector de archivos al hacer clic -->
+              
+              <!-- El input de archivo real, oculto -->
+              <input #fileInput type="file" (change)="onFileSelected($event)" hidden accept="image/png, image/jpeg, image/svg+xml">
+              
+              <div class="drop-zone-prompt">
+                <span class="icon">🖼️</span>
+                <p>
+                  <strong>Arrastra una imagen aquí</strong>
+                  <br>o haz clic para seleccionar
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- ========== 2. COLUMNA DE DATOS DEL PRODUCTO ========== -->
+        <div class="product-data-column">
+          <div class="form-grid two-cols">
+            <div class="form-group">
+              <label for="sku">SKU</label>
+              <input id="sku" type="text" formControlName="sku">
+            </div>
+            <div class="form-group">
+              <label for="nombre">Nombre del Producto</label>
+              <input id="nombre" type="text" formControlName="nombre">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" formControlName="descripcion" rows="3"></textarea>
+          </div>
+  
+          <div class="form-grid three-cols">
+            <div class="form-group">
+              <label for="precio">Precio</label>
+              <input id="precio" type="number" formControlName="precio">
+            </div>
+            <div class="form-group">
+              <label for="stock">Stock</label>
+              <input id="stock" type="number" formControlName="stock">
+            </div>
+            <div class="form-group">
+              <label for="categoriaId">Categoría</label>
+              <select id="categoriaId" formControlName="categoriaId">
+                <option [ngValue]="null" disabled>Selecciona una categoría</option>
+                <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.nombre }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========== 3. PIE DE PÁGINA DEL MODAL ========== -->
+        <div class="modal-footer-wrapper">
+          <div class="modal-footer">
+            <button type="submit" class="btn-primary" [disabled]="productForm.invalid || isSubmitting">
+              <span *ngIf="isSubmitting" class="spinner"></span>
+              {{ isSubmitting ? 'Guardando...' : (isEditMode ? 'Guardar Cambios' : 'Crear Producto') }}
+            </button>
+          </div>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+</div>

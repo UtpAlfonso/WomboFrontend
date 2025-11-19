@@ -1,0 +1,59 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>Gestión de Devoluciones</h1>
+    <p>Busca un pedido por su ID para procesar una devolución.</p>
+  </div>
+
+  <div class="search-card">
+    <div class="form-group">
+      <label for="orderId">Buscar ID de Pedido</label>
+      <input id="orderId" type="number" [formControl]="searchControl" (keyup.enter)="searchOrder()">
+    </div>
+    <button class="btn-primary" (click)="searchOrder()" [disabled]="isLoading">
+      {{ isLoading ? 'Buscando...' : 'Buscar Pedido' }}
+    </button>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="searchedOrder" class="return-form-container">
+    <h3>Procesar Devolución para Pedido #{{ searchedOrder.id }}</h3>
+    <form [formGroup]="returnForm" (ngSubmit)="submitReturn()">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Cant. Comprada</th>
+              <th>Cant. a Devolver</th>
+              <th>Motivo</th>
+            </tr>
+          </thead>
+          <tbody formArrayName="items">
+            <tr *ngFor="let item of returnItems.controls; let i = index" [formGroupName]="i">
+              <td>{{ item.value.productoNombre }}</td>
+              <td>{{ item.value.cantidadComprada }}</td>
+              <td>
+                <input type="number" formControlName="cantidadADevolver" min="0" [max]="item.value.cantidadComprada">
+              </td>
+              <td>
+                <input type="text" formControlName="motivo" placeholder="Ej: Producto dañado">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="return-options">
+        <div class="form-check">
+          <input id="devolverAlStock" type="checkbox" formControlName="devolverAlStock">
+          <label for="devolverAlStock">Devolver productos al stock del inventario</label>
+        </div>
+        <button type="submit" class="btn-primary" [disabled]="returnForm.invalid">
+          Procesar Devolución
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,283 @@
+// --- Paleta de Colores y Variables ---
+$primary-color: #4f46e5;
+$secondary-color: #10b981;
+$danger-color: #ef4444;
+$text-secondary-color: #6b7280;
+$card-bg-color: #ffffff;
+$border-color: #e5e7eb;
+$text-primary-color: #111827;
+
+// --- Estilos de Layout de Página de Gestión ---
+.page-container {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  h1 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: $text-primary-color;
+  }
+}
+
+.btn-primary {
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: darken($primary-color, 5%);
+  }
+}
+
+.loader {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+  color: $text-secondary-color;
+}
+
+// --- Estilos de la Tabla ---
+.table-container {
+  background-color: $card-bg-color;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  
+  th, td {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid $border-color;
+  }
+
+  th {
+    background-color: #f9fafb;
+    font-weight: 600;
+    color: $text-secondary-color;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr:hover {
+    background-color: #f9fafb;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  
+  .btn-secondary, .btn-danger {
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .btn-secondary {
+    background-color: $text-secondary-color;
+    color: white;
+    &:hover { background-color: darken($text-secondary-color, 5%); }
+  }
+
+  .btn-danger {
+    background-color: $danger-color;
+    color: white;
+    &:hover { background-color: darken($danger-color, 5%); }
+  }
+}
+
+// --- Estilos Específicos para Insignias de Rol ---
+.role-badge {
+  display: inline-block;
+  padding: 0.25em 0.6em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  border-radius: 0.25rem;
+  color: #fff;
+  margin-right: 5px;
+
+  &.admin { background-color: $primary-color; }
+  &.worker { background-color: $secondary-color; }
+  &.client { background-color: $text-secondary-color; }
+}
+
+// --- Estilos del Modal ---
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba($text-primary-color, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-container {
+  background-color: $card-bg-color;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 600px;
+  animation: slideInUp 0.4s ease-out;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid $border-color;
+  h3 { margin: 0; font-size: 1.25rem; font-weight: 600; }
+  .close-button {
+    background: none; border: none; font-size: 2rem; cursor: pointer;
+    color: $text-secondary-color;
+    &:hover { color: $text-primary-color; }
+  }
+}
+
+.modal-body {
+  padding: 1.5rem;
+  .form-group {
+    margin-bottom: 1.25rem;
+    label { font-weight: 600; display: block; margin-bottom: 0.5rem; }
+    input, textarea, select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid $border-color;
+      border-radius: 8px;
+      font-size: 1rem;
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
+      }
+    }
+  }
+}
+
+.form-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.roles-group {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  border-top: 1px solid $border-color;
+  background-color: #f9fafb;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+
+// --- Animaciones ---
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideInUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@media (max-width: 768px) {
+  .table-container {
+    box-shadow: none;
+    background: none;
+  }
+
+  table {
+    border: 0;
+
+    thead {
+      // Ocultar los encabezados de la tabla en móvil
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+
+    // Convertir cada fila en una tarjeta
+    tr {
+      display: block;
+      margin-bottom: 1.5rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      border-bottom: none;
+    }
+
+    td {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 1rem;
+      text-align: right; // Alinear el contenido a la derecha
+
+      // Añadir el "label" del encabezado usando un pseudo-elemento
+      &::before {
+        content: attr(data-label); // Tomará el valor de 'data-label'
+        float: left;
+        font-weight: 600;
+        color: #4f46e5;
+        text-align: left;
+      }
+      
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+    
+    // Estilos especiales para el td de acciones
+    .actions {
+      justify-content: flex-end; // Alinear los botones al final
+      &::before {
+        content: ''; // No mostrar label para las acciones
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+<div class="page-container">
+  <div class="cart-header">
+    <h1>Mi Carrito de Compras</h1>
+  </div>
+
+  <div *ngIf="isLoading" class="loader">Cargando carrito...</div>
+
+  <div *ngIf="!isLoading && cart">
+    <div *ngIf="cart.items.length === 0; else cartContent" class="empty-cart-message">
+      <p>Tu carrito está vacío. ¡Es hora de llenarlo con juguetes!</p>
+      <a routerLink="/products" class="btn-primary">Explorar Catálogo</a>
+    </div>
+
+    <ng-template #cartContent>
+      <div class="cart-layout">
+        <div class="cart-items-list">
+          <div *ngFor="let item of cart.items" class="cart-item-card">
+            <div class="item-image">
+              <img *ngIf="item.productoImageUrl" [src]="(serverBaseUrl + item.productoImageUrl) | safeUrl" alt="{{ item.productoNombre }}">
+              <img *ngIf="!item.productoImageUrl" src="assets/images/placeholder.png" alt="Imagen no disponible">
+            </div>
+            <div class="item-details">
+              <h3 class="item-name">{{ item.productoNombre }}</h3>
+              <p class="item-price">{{ item.precioUnitario | currency:'S/.' }}</p>
+              <div class="item-controls">
+                <button (click)="updateQuantity(item, -1)">-</button>
+                <span class="item-quantity">{{ item.cantidad }}</span>
+                <button (click)="updateQuantity(item, 1)">+</button>
+              </div>
+            </div>
+            <div class="item-subtotal">
+              <span>Subtotal:</span>
+              <span>{{ item.subtotal | currency:'S/.' }}</span>
+            </div>
+            <button class="remove-item-btn" (click)="removeItem(item.productoId)">
+              &times;
+            </button>
+          </div>
+        </div>
+
+        <div class="cart-summary">
+          <h2>Resumen del Pedido</h2>
+          <div class="summary-total">
+            <span>Total:</span>
+            <span class="total-amount">{{ cart.total | currency:'S/.' }}</span>
+          </div>
+          <button class="btn-primary checkout-btn" routerLink="/checkout-summary">
+  Proceder al Pago
+</button>
+          <button class="btn-secondary clear-cart-btn" (click)="clearCart()">
+            Vaciar Carrito
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

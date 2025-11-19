@@ -1,0 +1,234 @@
+<!-- ========== 1. CARRUSEL HERO ========== -->
+<div id="mainCarousel" class="carousel slide carousel-fade custom-carousel" data-bs-ride="carousel">
+
+  <!-- Indicadores (puntos) -->
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active"></button>
+    <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2"></button>
+  </div>
+
+  <!-- Carrusel -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://www.xboxdynasty.de/wp-content/uploads/2023/12/adventskalender-1.jpg" class="d-block w-100 carousel-img" alt="Slide 1">
+    </div>
+
+    <div class="carousel-item">
+      <img src="https://m.media-amazon.com/images/I/71VTts2iI-L._AC_SL1500_.jpg" class="d-block w-100 carousel-img" alt="Slide 2">
+    </div>
+
+    <div class="carousel-item">
+       <img src="https://m.media-amazon.com/images/I/81ZOBKH-cOL._AC_SL1500_.jpg" class="d-block w-100 carousel-img" alt="Slide 2">
+    </div>
+  </div>
+
+  <!-- Flechas -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+
+  <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+
+<!-- ===== MINI CHAT BOX ===== -->
+<div class="chat-container" [class.open]="isChatOpen">
+  
+  <!-- Botón flotante -->
+  <button class="chat-toggle-btn" (click)="toggleChat()">
+    <i class="fa-solid" [ngClass]="isChatOpen ? 'fa-xmark' : 'fa-comments'"></i>
+  </button>
+
+  <!-- Caja del chat -->
+  <div class="chat-box">
+    <div class="chat-header">
+      <i class="fa-solid fa-robot me-2"></i> Wombo Perú - Soporte
+    </div>
+
+    <div class="chat-messages">
+      <div *ngFor="let msg of chatMessages" 
+           class="chat-message" 
+           [ngClass]="msg.from">
+        {{ msg.text }}
+      </div>
+    </div>
+
+    <div class="chat-input-area">
+      <input type="text"
+             [(ngModel)]="chatInput"
+             class="chat-input"
+             placeholder="Escribe un mensaje..."
+             (keyup.enter)="sendChatMessage()">
+
+      <button class="send-btn" (click)="sendChatMessage()">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+
+<section class="accordion-section container my-5">
+  <h2 class="text-center mb-4">Sobre Nosotros</h2>
+
+  <div class="accordion" id="accordionExample">
+
+    <!-- Misión -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <i class="fas fa-bullseye me-3" aria-hidden="true"></i>
+          <span class="accordion-title">Nuestra Misión</span>
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+           data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          Brindar juguetes innovadores, educativos y seguros que fomenten la creatividad y el aprendizaje
+          de los niños, creando experiencias únicas para toda la familia.
+        </div>
+      </div>
+    </div>
+
+    <!-- Visión -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          <i class="fas fa-eye me-3" aria-hidden="true"></i>
+          <span class="accordion-title">Nuestra Visión</span>
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+           data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          Convertirnos en la juguetería líder en Perú, reconocida por su calidad, innovación y compromiso
+          con el desarrollo infantil.
+        </div>
+      </div>
+    </div>
+
+    <!-- Valores -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          <i class="fas fa-handshake me-3" aria-hidden="true"></i>
+          <span class="accordion-title">Nuestros Valores</span>
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+           data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <ul>
+            <li><strong>Seguridad:</strong> Cada juguete cumple con estándares de fabricación.</li>
+            <li><strong>Innovación:</strong> Traemos las últimas tendencias en entretenimiento infantil.</li>
+            <li><strong>Compromiso:</strong> Buscamos siempre ofrecer la mejor experiencia al cliente.</li>
+            <li><strong>Diversión:</strong> Queremos que cada niño viva una aventura con nosotros.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="featured-products">
+  <div class="container">
+    <div class="section-title">
+      <h2>Novedades</h2>
+      <p>Los juguetes más buscados por nuestros pequeños aventureros</p>
+    </div>
+    <div *ngIf="isLoading" class="loader">Cargando...</div>
+
+    <div *ngIf="!isLoading" class="product-grid">
+      <div *ngFor="let product of products.slice(0, 8)" class="product-card">
+        <a [routerLink]="['/product', product.id]" class="product-link">
+          <div class="product-image">
+            <img *ngIf="product.imageUrl" [src]="(serverBaseUrl + product.imageUrl) | safeUrl" alt="{{ product.nombre }}">
+            <img *ngIf="!product.imageUrl" src="assets/images/placeholder.png" alt="Imagen no disponible">
+          </div>
+          <div class="product-info">
+            <span class="category">{{ product.categoriaNombre }}</span>
+            <h3 class="title">{{ product.nombre }}</h3>
+            <p class="price">{{ product.precio | currency:'S/.' }}</p>
+          </div>
+        </a>
+        <div class="product-actions">
+          <button class="action-button review-button" (click)="openReviewModal(product)">
+            Escribir Reseña
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="modal-overlay" *ngIf="isReviewModalOpen" (click)="closeReviewModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Tu opinión sobre: <strong>{{ selectedProductForReview?.nombre }}</strong></h3>
+      <button class="close-button" (click)="closeReviewModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+        <div class="form-group">
+          <label for="calificacion">Tu Calificación (1-5)</label>
+          <input id="calificacion" type="range" formControlName="calificacion" min="1" max="5" step="1">
+          <div class="rating-display">{{ reviewForm.get('calificacion')?.value }} ★</div>
+        </div>
+        <div class="form-group">
+          <label for="comentario">Comentario</label>
+          <textarea id="comentario" formControlName="comentario" rows="5"
+            placeholder="¿Qué te pareció este juguete?"></textarea>
+          <small *ngIf="reviewForm.get('comentario')?.touched && reviewForm.get('comentario')?.invalid"
+            class="error-text">
+            Tu comentario debe tener al menos 10 caracteres.
+          </small>
+        </div>
+        <div class="form-feedback" *ngIf="feedbackMessage" [class.success]="!feedbackIsError"
+          [class.error]="feedbackIsError">
+          {{ feedbackMessage }}
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="submit-button" [disabled]="reviewForm.invalid">Enviar Reseña</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<section class="reviews-section" *ngIf="recentReviews.length > 0">
+  <div class="container">
+    <div class="section-title">
+      <h2>La Opinión de Nuestros Clientes</h2>
+      <p>Descubre lo que otros padres y niños piensan de nuestros juguetes.</p>
+    </div>
+
+    <div class="reviews-grid">
+      <!-- Iteramos sobre las reseñas cargadas -->
+      <div *ngFor="let review of recentReviews" class="review-card">
+        <div class="review-card__product">
+         <img *ngIf="review.productoImageUrl" [src]="(serverBaseUrl + review.productoImageUrl) | safeUrl" alt="{{ review.productoNombre }}" class="product-avatar">
+          <img *ngIf="!review.productoImageUrl" src="assets/images/placeholder.png" alt="Imagen no disponible" class="product-avatar">
+          <span class="product-name">{{ review.productoNombre }}</span>
+        </div>
+        <div class="review-card__body">
+          <p class="comment">"{{ review.comentario }}"</p>
+        </div>
+        <div class="review-card__footer">
+          <div class="rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-value">{{ review.calificacion }}/5</span>
+          </div>
+          <span class="user-name">- {{ review.nombreUsuario }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

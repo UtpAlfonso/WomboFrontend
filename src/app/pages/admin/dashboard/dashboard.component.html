@@ -1,0 +1,90 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>Dashboard</h1>
+    <p>Resumen en tiempo real de la actividad de la tienda.</p>
+  </div>
+
+  <!-- Indicador de Carga -->
+  <div *ngIf="isLoading" class="loader-container">
+    <div class="loader">Cargando datos del dashboard...</div>
+  </div>
+
+  <!-- Contenido Principal (se muestra cuando la carga ha terminado) -->
+  <div *ngIf="!isLoading">
+    <!-- Grid de Estadísticas -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h4>Ventas del Día</h4>
+        <p class="stat-value success">{{ totalSalesToday | currency:'S/.' }}</p>
+      </div>
+      <div class="stat-card">
+        <h4>Pedidos por Procesar</h4>
+        <p class="stat-value warning">{{ newOrdersCount }}</p>
+      </div>
+      <div class="stat-card">
+        <h4>Usuarios Totales</h4>
+        <p class="stat-value">{{ totalUsers }}</p>
+      </div>
+      <div class="stat-card" [class.alert]="outOfStockCount > 0">
+        <h4>Productos sin Stock</h4>
+        <p class="stat-value">{{ outOfStockCount }}</p>
+      </div>
+    </div>
+
+    <!-- Contenedor con Accesos Rápidos y Pedidos Recientes -->
+    <div class="main-content-grid">
+      <!-- Columna de Accesos Rápidos -->
+      <div class="quick-actions">
+        <h2>Accesos Directos</h2>
+        <div class="actions-list">
+          <a routerLink="/admin/users" class="action-card">
+            <span>Gestionar Usuarios</span>
+            <span class="arrow">&rarr;</span>
+          </a>
+          <a routerLink="/admin/inventory" class="action-card">
+            <span>Gestionar Inventario</span>
+            <span class="arrow">&rarr;</span>
+          </a>
+          <a routerLink="/admin/orders" class="action-card">
+            <span>Ver Todos los Pedidos</span>
+            <span class="arrow">&rarr;</span>
+          </a>
+          <a routerLink="/admin/reports" class="action-card">
+            <span>Generar Reportes</span>
+            <span class="arrow">&rarr;</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Columna de Pedidos Recientes -->
+      <div class="recent-orders">
+        <h2>Pedidos Recientes</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let order of recentOrders">
+                <td>#{{ order.id }}</td>
+                <td>{{ order.fechaPedido | date:'short' }}</td>
+                <td>{{ order.total | currency:'S/.' }}</td>
+                <td>
+                  <span class="status-badge" [ngClass]="order.estado.toLowerCase()">{{ order.estado }}</span>
+                </td>
+              </tr>
+              <tr *ngIf="recentOrders.length === 0">
+                <td colspan="4" class="no-data">No hay pedidos recientes.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

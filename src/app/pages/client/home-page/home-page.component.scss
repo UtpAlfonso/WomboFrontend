@@ -1,0 +1,735 @@
+// --- Paleta de Colores Vívidos ---
+$primary-purple: #6a1b9a;
+$vibrant-yellow: #ffca28;
+$bright-pink: #ec407a;
+$deep-blue: #1e88e5;
+$light-bg: #f5f3f7;
+$dark-text: #333;
+
+// --- Mixin para Animaciones ---
+@mixin transition($properties...) {
+  transition: $properties 0.3s ease-in-out;
+}
+
+.custom-carousel {
+  position: relative;
+
+  .carousel-inner {
+    .carousel-item {
+      height: 80vh;
+      min-height: 480px;
+      position: relative;
+
+      img,
+      video {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        filter: brightness(0.85);
+        transition: transform 8s ease;
+      }
+
+      &.active img,
+      &.active video {
+        transform: scale(1.08); // zoom suave
+      }
+
+      .carousel-caption {
+        bottom: 15%;
+        text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+
+        h5 {
+          font-size: 3rem;
+          font-weight: 700;
+          color: white;
+          animation: fadeInDown 1s ease;
+        }
+
+        p {
+          font-size: 1.3rem;
+          margin-top: 10px;
+          color: #f0f0f0;
+          animation: fadeInUp 1.2s ease;
+        }
+      }
+    }
+  }
+
+  /* Indicadores */
+  .carousel-indicators button {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.5);
+
+    &.active {
+      background-color: $vibrant-yellow;
+      transform: scale(1.2);
+    }
+  }
+
+  /* Flechas personalizadas */
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    filter: invert(1) drop-shadow(0 2px 4px rgba(0, 0, 0, .4));
+    width: 40px;
+    height: 40px;
+  }
+
+  /* Fondo degradado overlay */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.7)
+    );
+    z-index: 1;
+  }
+
+  .carousel-caption {
+    z-index: 2;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .custom-carousel .carousel-caption h5 {
+    font-size: 2rem;
+  }
+  .custom-carousel .carousel-caption p {
+    font-size: 1rem;
+  }
+}
+
+// --- Estilos del Hero ---
+.hero-carousel {
+  .hero-image {
+    height: 70vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba($primary-purple, 0.4) 0%, rgba($primary-purple, 0.8) 100%);
+    }
+  }
+
+  .hero-caption {
+    position: relative;
+    z-index: 2;
+    animation: fadeInUp 1s ease-out;
+
+    h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .cta-button {
+    background-color: $vibrant-yellow;
+    color: $dark-text;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    box-shadow: 0 5px 15px rgba($vibrant-yellow, 0.4);
+    @include transition(transform, box-shadow);
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba($vibrant-yellow, 0.6);
+    }
+  }
+}
+
+.accordion-section {
+  padding: 3rem 0;
+  background: $light-bg;
+
+  h2 {
+    font-weight: 700;
+    text-align: center;
+    color: $primary-purple;
+    margin-bottom: 2rem;
+    font-size: 2.2rem;
+  }
+}
+
+// ===============================
+// 📌 Accordion moderno
+// ===============================
+.accordion {
+  .accordion-item {
+    border: none;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.25s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 22px rgba(0,0,0,0.12);
+    }
+
+    // HEADER
+    .accordion-header {
+      .accordion-button {
+        background: linear-gradient(45deg, $primary-purple, $deep-blue);
+        color: white;
+        font-weight: 600;
+        font-size: 1.1rem;
+        padding: 1.3rem;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        // Ícono inicial
+        &::before {
+          font-family: "Font Awesome 6 Free";
+          font-weight: 900;
+          font-size: 1.2rem;
+          margin-right: .5rem;
+          transition: transform 0.3s ease;
+          content: "\f06e"; // ícono estrella
+        }
+
+        // Al abrir
+        &:not(.collapsed)::before {
+          transform: rotate(180deg);
+          content: "\f078"; // caret down
+        }
+
+        // transiciones
+        transition: background 0.3s ease;
+
+        &:hover {
+          background: linear-gradient(45deg, lighten($primary-purple, 5%), lighten($deep-blue, 5%));
+        }
+
+        &:focus {
+          box-shadow: none;
+        }
+      }
+    }
+
+    // BODY
+    .accordion-body {
+      background: white;
+      padding: 1.7rem;
+      color: $dark-text;
+      font-size: 1.5rem;
+      line-height: 1.6;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      animation: fadeSlide .4s ease;
+    }
+  }
+  .accordion .accordion-item .accordion-header .accordion-button::before {
+  content: none !important;
+}
+}
+
+// ===============================
+// 🎬 Animación suave al abrir
+// ===============================
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* --- MINI CHAT FLOATING WIDGET --- */
+
+.chat-container {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 9999;
+
+  .chat-toggle-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #6a1b9a;
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+
+    &:hover {
+      background: darken(#6a1b9a, 10%);
+      transform: scale(1.06);
+    }
+  }
+
+  .chat-box {
+    width: 320px;
+    height: 420px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideUp .35s ease forwards;
+  }
+
+  &.open .chat-box {
+    display: flex;
+  }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+.chat-header {
+  background: #6a1b9a;
+  padding: 12px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  background: #f6f3f8;
+}
+
+.chat-message {
+  max-width: 80%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  margin: 6px 0;
+  font-size: 0.85rem;
+
+  &.user {
+    background: #6a1b9a;
+    color: white;
+    margin-left: auto;
+  }
+
+  &.bot {
+    background: #e0d4ec;
+    color: #333;
+    margin-right: auto;
+  }
+}
+
+.chat-input-area {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+
+  .chat-input {
+    flex: 1;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+
+    &:focus {
+      border-color: #6a1b9a;
+    }
+  }
+
+  .send-btn {
+    background: #6a1b9a;
+    border: none;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-left: 8px;
+    cursor: pointer;
+
+    &:hover {
+      background: darken(#6a1b9a, 10%);
+    }
+  }
+}
+
+// --- Estilos de la Sección de Productos ---
+.featured-products {
+  padding: 5rem 0;
+  background-color: $light-bg;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 3rem;
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: $primary-purple;
+  }
+  p {
+    color: #777;
+  }
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.product-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  @include transition(transform, box-shadow);
+  animation: popIn 0.5s ease-out forwards;
+  opacity: 0; // Inicia invisible para la animación
+
+  // Animación escalonada
+  @for $i from 1 through 8 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.1}s;
+    }
+  }
+
+  &:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+  }
+}
+
+.product-link {
+  text-decoration: none;
+  color: $dark-text;
+}
+
+.product-image {
+  overflow: hidden;
+  img {
+    width: 100%;
+    display: block;
+    @include transition(transform);
+  }
+  &:hover img {
+    transform: scale(1.1);
+  }
+}
+
+.product-info {
+  padding: 1.5rem;
+  .category {
+    font-size: 0.8rem;
+    color: $bright-pink;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0.5rem 0;
+  }
+  .price {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: $deep-blue;
+  }
+}
+
+.product-actions {
+  padding: 0 1.5rem 1.5rem;
+  margin-top: auto;
+}
+
+.review-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: transparent;
+  border: 2px solid $primary-purple;
+  color: $primary-purple;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  @include transition(background-color, color);
+
+  &:hover {
+    background-color: $primary-purple;
+    color: white;
+  }
+}
+// ... (Tus estilos existentes para Hero, Productos y Modal)
+
+// --- Estilos de la Sección de Reseñas ---
+.reviews-section {
+  padding: 5rem 0;
+  background-color: #fdfcff; // Un fondo casi blanco con un toque de morado
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+}
+
+.review-card {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 10px 25px rgba(106, 27, 154, 0.08); // Sombra con color primario
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  animation: popIn 0.5s ease-out forwards;
+  opacity: 0;
+
+  // Animación escalonada
+  @for $i from 1 through 6 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.15}s;
+    }
+  }
+
+  // Icono de comillas decorativo
+  &::before {
+    content: '“';
+    position: absolute;
+    top: -20px;
+    left: 10px;
+    font-size: 8rem;
+    font-weight: 800;
+    color: rgba($primary-purple, 0.05);
+    z-index: 1;
+  }
+
+  &__product {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .product-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  .product-name {
+    font-weight: 600;
+    color: $dark-text;
+  }
+
+  &__body {
+    flex-grow: 1;
+    position: relative;
+    z-index: 2;
+    .comment {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #555;
+      margin: 0;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f0e9f5;
+    position: relative;
+    z-index: 2;
+
+    .rating {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      .stars {
+        color: $vibrant-yellow;
+      }
+      .rating-value {
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+    }
+
+    .user-name {
+      font-style: italic;
+      color: #777;
+    }
+  }
+}
+
+// --- Estilos del Modal (CSS Puro) ---
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-container {
+  background: white;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  animation: slideIn 0.4s ease-out;
+}
+
+.modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: $primary-purple;
+  }
+  .close-button {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #aaa;
+    @include transition(color);
+    &:hover { color: $dark-text; }
+  }
+}
+
+.modal-body {
+  padding: 1.5rem;
+  .form-group {
+    margin-bottom: 1rem;
+    label { font-weight: 600; display: block; margin-bottom: 0.5rem; }
+    input, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+  }
+  .rating-display {
+    text-align: center;
+    font-size: 1.5rem;
+    color: $vibrant-yellow;
+  }
+}
+
+.modal-footer {
+  padding: 1rem 1.5rem;
+  text-align: right;
+  border-top: 1px solid #eee;
+}
+
+.submit-button {
+  background-color: $bright-pink;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  @include transition(background-color);
+  &:hover { background-color: darken($bright-pink, 10%); }
+  &:disabled { background-color: #ccc; cursor: not-allowed; }
+}
+
+.form-feedback {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  &.success { background-color: #d4edda; color: #155724; }
+  &.error { background-color: #f8d7da; color: #721c24; }
+}
+
+
+// --- Animaciones Globales ---
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

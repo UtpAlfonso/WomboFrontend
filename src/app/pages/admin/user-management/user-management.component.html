@@ -1,0 +1,105 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>Gestión de Usuarios</h1>
+    <button class="btn btn-primary" (click)="openCreateModal()">
+      <i class="bi bi-plus-circle me-2"></i>Crear Nuevo Usuario
+    </button>
+  </div>
+
+  <div *ngIf="isLoading" class="d-flex justify-content-center my-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div>
+
+  <div class="card shadow-sm" *ngIf="!isLoading">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>ID</th>
+              <th>Nombre Completo</th>
+              <th>Email</th>
+              <th>Roles</th>
+              <th class="text-end">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td data-label="ID">{{ user.id }}</td>
+              <td data-label="Nombre Completo">{{ user.nombre }} {{ user.apellido }}</td>
+              <td data-label="Email">{{ user.email }}</td>
+              <td data-label="Roles">
+                <span *ngFor="let role of user.roles" class="badge me-1" [ngClass]="{
+                  'bg-danger': role === 'ROLE_ADMIN',
+                  'bg-success': role === 'ROLE_WORKER',
+                  'bg-secondary': role === 'ROLE_CLIENT'
+                }">
+                  {{ role.replace('ROLE_', '') }}
+                </span>
+              </td>
+              <td class="text-end">
+                <button class="btn btn-sm btn-outline-secondary me-2" (click)="openEditModal(user)">Editar</button>
+                <button class="btn btn-sm btn-outline-danger" (click)="deleteUser(user.id)">Eliminar</button>
+              </td>
+            </tr>
+            <tr *ngIf="!isLoading && users.length === 0">
+              <td colspan="5" class="text-center p-4">No se encontraron usuarios.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Bootstrap para Crear/Editar Usuario -->
+<div class="modal fade" #userModal tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userModalLabel">{{ isEditMode ? 'Editar' : 'Nuevo' }} Usuario</h5>
+        <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input id="nombre" type="text" class="form-control" formControlName="nombre">
+            </div>
+            <div class="col-md-6">
+              <label for="apellido" class="form-label">Apellido</label>
+              <input id="apellido" type="text" class="form-control" formControlName="apellido">
+            </div>
+            <div class="col-12">
+              <label for="email" class="form-label">Email</label>
+              <input id="email" type="email" class="form-control" formControlName="email">
+            </div>
+            <div class="col-12">
+              <label for="password" class="form-label">Contraseña</label>
+              <input id="password" type="password" class="form-control" formControlName="password"
+                     [placeholder]="isEditMode ? 'Dejar en blanco para no cambiar' : ''">
+            </div>
+            <div class="col-12" formGroupName="roles">
+              <label class="form-label d-block">Roles</label>
+              <div class="d-flex gap-4 mt-2">
+                <div *ngFor="let role of availableRoles" class="form-check">
+                  <input class="form-check-input" type="checkbox" [formControlName]="role" [id]="role">
+                  <label class="form-check-label" [for]="role">{{ role.replace('ROLE_', '') }}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+            {{ isEditMode ? 'Guardar Cambios' : 'Crear Usuario' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

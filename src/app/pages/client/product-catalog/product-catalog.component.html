@@ -1,0 +1,76 @@
+<div class="page-container">
+  <div class="catalog-header">
+    <h1>Explora Nuestro Universo de Juguetes</h1>
+    <p>Encuentra el compañero de aventuras perfecto para cada etapa.</p>
+  </div>
+
+  <div class="catalog-layout">
+    <!-- Columna de Filtros -->
+    <aside class="filters-sidebar">
+      <h4>Filtrar Búsqueda</h4>
+
+      <!-- Filtro: Lupa de Búsqueda -->
+      <div class="filter-group">
+        <label for="search">Busca por nombre o SKU</label>
+        <div class="search-box">
+          <input id="search" type="text" [formControl]="searchControl" placeholder="Ej: Lego, muñeca, etc.">
+          <span class="search-icon">🔍</span>
+        </div>
+      </div>
+
+      <!-- Filtro: Categorías -->
+      <div class="filter-group">
+        <label for="category">Categorías</label>
+        <select id="category" [formControl]="categoryControl">
+          <option value="all">Todas las categorías</option>
+          <option *ngFor="let cat of categories$ | async" [value]="cat.nombre">
+            {{ cat.nombre }}
+          </option>
+        </select>
+      </div>
+    </aside>
+
+    <!-- Columna de Productos -->
+    <main class="products-grid">
+      <div *ngIf="isLoading" class="loader">Cargando productos...</div>
+
+      <ng-container *ngIf="filteredProducts$ | async as products">
+        <div *ngIf="!isLoading && products.length > 0" class="grid">
+          <div *ngFor="let product of products" class="product-card">
+            <a [routerLink]="['/product', product.id]" class="product-link">
+              <div class="product-image">
+                <img *ngIf="product.imageUrl" [src]="(serverBaseUrl + product.imageUrl) | safeUrl" alt="{{ product.nombre }}">
+                
+                <!-- Si no, mostramos una imagen de placeholder -->
+                <img *ngIf="!product.imageUrl" src="assets/images/placeholder.png" alt="Imagen no disponible">
+              </div>
+              <div class="product-info">
+                <span class="category">{{ product.categoriaNombre }}</span>
+                <h3 class="title">{{ product.nombre }}</h3>
+                <p class="price">{{ product.precio | currency:'S/.' }}</p>
+                <p class="stock-info" [class.low-stock]="product.stock <= 5 && product.stock > 0" [class.no-stock]="product.stock === 0">
+                  <ng-container *ngIf="product.stock > 0; else noStock">
+                    Stock: {{ product.stock }}
+                  </ng-container>
+                  <ng-template #noStock>
+                    ¡Sin Stock!
+                  </ng-template>
+                </p>
+              </div>
+            </a>
+            <div class="product-actions">
+              <button class="action-button" [disabled]="product.stock === 0" (click)="addToCart(product.id)">
+                Añadir al Carrito
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!isLoading && products.length === 0" class="no-results">
+          <h3>No se encontraron resultados</h3>
+          <p>Intenta ajustar tus filtros de búsqueda.</p>
+        </div>
+      </ng-container>
+    </main>
+  </div>
+</div>

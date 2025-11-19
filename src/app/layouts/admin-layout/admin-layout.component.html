@@ -1,0 +1,22 @@
+<div class="admin-layout-container">
+  
+  <!-- --- CAMBIO CLAVE AQUÍ --- -->
+  <!-- 
+    Ahora estamos pasando el valor de la señal 'isSidebarVisible()'
+    a la propiedad 'isOpen' de nuestro componente <app-sidebar>.
+  -->
+  <app-sidebar 
+    [isOpen]="isSidebarVisible()" 
+    (closeSidebar)="closeSidebar()">
+  </app-sidebar>
+  
+  <main class="admin-main-content">
+    <button class="sidebar-toggle-button" (click)="toggleSidebar()">
+      &#9776;
+    </button>
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- El overlay sigue funcionando con la señal -->
+  <div *ngIf="isSidebarVisible()" class="sidebar-overlay" (click)="toggleSidebar()"></div>
+</div>

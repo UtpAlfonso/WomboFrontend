@@ -1,0 +1,142 @@
+// Variables
+$primary-color: #6a1b9a;
+$border-color: #e0e0e0;
+$light-bg: #f5f3f7;
+
+.page-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  h1 { font-weight: 700; color: $primary-color; }
+}
+
+.profile-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.profile-item {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  border-bottom: 1px solid $border-color;
+  
+  &:last-of-type {
+    border-bottom: none;
+  }
+  
+  label {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 0.5rem;
+  }
+  
+  span {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+}
+
+.roles-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.role-badge {
+  background-color: $primary-color;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.profile-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-primary, .btn-secondary {
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: $primary-color;
+  color: white;
+  &:disabled {
+    background-color: #ccc;
+  }
+}
+.btn-secondary {
+  background-color: #eee;
+  color: #333;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-container {
+  background: white;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  h3 { margin: 0; }
+  .close-button {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+}
+
+.modal-body {
+  padding: 1.5rem;
+  .form-group {
+    margin-bottom: 1rem;
+    label { font-weight: 600; display: block; margin-bottom: 0.5rem; }
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+  }
+}
+
+.modal-footer {
+  padding: 1rem 1.5rem;
+  text-align: right;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}

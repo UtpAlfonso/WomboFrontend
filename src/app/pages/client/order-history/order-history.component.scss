@@ -1,0 +1,101 @@
+// Variables
+$primary-color: #6a1b9a;
+$secondary-color: #ffca28;
+$light-bg: #f5f3f7;
+$border-color: #e0e0e0;
+
+.page-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.order-history-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  h1 { font-weight: 700; color: $primary-color; }
+}
+
+.loader, .empty-history-message {
+  text-align: center;
+  padding: 3rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.empty-history-message a {
+  margin-top: 1rem;
+  display: inline-block;
+}
+
+.table-container {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  overflow-x: auto;
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid $border-color;
+    }
+    th {
+      background-color: $light-bg;
+      font-weight: 600;
+      color: #555;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+  }
+}
+
+.status-badge {
+  padding: 0.3em 0.8em;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
+  // Colores para los estados de pedido
+  &.pendiente_pago { background-color: #6c757d; } // Gris
+  &.procesando { background-color: #ffc107; } // Amarillo
+  &.enviado { background-color: #17a2b8; } // Azul cian
+  &.entregado { background-color: #28a745; } // Verde
+  &.cancelado, &.pago_fallido { background-color: #dc3545; } // Rojo
+}
+
+.actions {
+  text-align: right;
+  .btn-secondary {
+    background-color: $border-color;
+    color: #555;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    &:hover { background-color: darken($border-color, 5%); }
+  }
+  .btn-primary {
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    &:hover { background-color: darken($primary-color, 5%); }
+  }
+}
+
+.empty-history-message a.btn-primary {
+  display: inline-block;
+  margin-top: 1.5rem;
+}

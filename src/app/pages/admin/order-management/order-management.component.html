@@ -1,0 +1,115 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>Gestión de Pedidos</h1>
+    <p>Visualiza y actualiza el estado de todas las órdenes de compra.</p>
+  </div>
+
+  <div class="content-wrapper">
+    <!-- Tabla principal -->
+    <div class="orders-list">
+      <div *ngIf="isLoading" class="loader">Cargando pedidos...</div>
+
+      <div class="table-container" *ngIf="!isLoading">
+        <table>
+          <thead>
+            <tr>
+              <th>ID Pedido</th>
+              <th>Fecha</th>
+              <th>Total</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let order of orders"
+              (click)="viewOrderDetails(order)"
+              [class.selected]="selectedOrder?.id === order.id"
+            >
+              <td>#{{ order.id }}</td>
+              <td>{{ order.fechaPedido | date:'dd/MM/yyyy h:mm a' }}</td>
+              <td>{{ order.total | currency:'S/.' }}</td>
+              <td>
+                <select
+                  class="status-select"
+                  (change)="onStatusChange(order.id, $event)"
+                  (click)="$event.stopPropagation()"
+                >
+                  <option
+                    *ngFor="let status of orderStatuses"
+                    [value]="status"
+                    [selected]="status === order.estado"
+                  >
+                    {{ status }}
+                  </option>
+                </select>
+              </td>
+              <td>
+                <button
+                  class="btn-secondary"
+                  (click)="viewOrderDetails(order); $event.stopPropagation()"
+                >
+                  Ver Detalles
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="orders.length === 0">
+              <td colspan="5" class="no-data">No se encontraron pedidos.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ MODAL centrado (solo aparece si hay un pedido seleccionado) -->
+  <div class="modal-overlay" *ngIf="selectedOrder">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Detalles del Pedido #{{ selectedOrder.id }}</h3>
+        <button class="close-button" (click)="closeDetailsPanel()">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="detail-group">
+          <strong>Fecha:</strong>
+          <span>
+            {{ selectedOrder.fechaPedido | date:'fullDate' }}
+            a las {{ selectedOrder.fechaPedido | date:'shortTime' }}
+          </span>
+        </div>
+
+        <div class="detail-group">
+          <strong>Total:</strong>
+          <span>{{ selectedOrder.total | currency:'S/.' }}</span>
+        </div>
+
+        <div class="detail-group">
+          <strong>Estado Actual:</strong>
+          <span class="status-badge">{{ selectedOrder.estado }}</span>
+        </div>
+
+        <div class="detail-group">
+          <strong>Dirección de Envío:</strong>
+          <p>{{ selectedOrder.direccionEnvio }}</p>
+        </div>
+
+        <hr />
+
+        <h4>Productos:</h4>
+        <ul class="product-list">
+          <li *ngFor="let item of selectedOrder.detalles">
+            <span class="product-name">{{ item.productoNombre }}</span>
+            <span class="product-details">
+              {{ item.cantidad }} × {{ item.precioUnitario | currency:'S/.' }}
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-primary" (click)="closeDetailsPanel()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

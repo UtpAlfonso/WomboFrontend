@@ -1,0 +1,298 @@
+/* --- Paleta de Colores --- */
+$primary-purple: #6a0dad;
+$primary-blue: #3a7bd5;
+$accent-green: #10b981;
+$danger-color: #ef4444;
+$bg-light: #f4f5ff;
+$text-dark: #1c1b29;
+$text-light: #6b7280;
+$card-bg: #ffffff;
+$border-color: #e0e4ff;
+$background-dark: rgba(17, 24, 39, 0.85);
+$text-light: #f9fafb;
+$text-dark: #1f2937;
+$border-radius: 12px;
+$primary-color: #4f46e5;
+$secondary-color: #6366f1;
+$accent-color: #3b82f6;
+
+/* --- Contenedor General --- */
+.page-container {
+  padding: 2rem;
+  background: linear-gradient(135deg, $bg-light, #ffffff);
+  border-radius: 1rem;
+  box-shadow: 0 5px 20px rgba(58, 123, 213, 0.1);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* --- Cabecera --- */
+.page-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+
+  h1 {
+    font-size: 2rem;
+    color: $primary-purple;
+    font-weight: 700;
+  }
+
+  p {
+    color: $text-light;
+    margin-top: 0.5rem;
+  }
+}
+
+/* --- Tabla de Pedidos --- */
+.table-container {
+  background: $card-bg;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    padding: 1rem;
+    border-bottom: 1px solid $border-color;
+    text-align: left;
+  }
+
+  th {
+    background: linear-gradient(90deg, $primary-purple, $primary-blue);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+
+  tbody tr:hover {
+    background-color: rgba($primary-blue, 0.07);
+    cursor: pointer;
+  }
+
+  .status-select {
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.4rem;
+    border: 1px solid $border-color;
+    background: $bg-light;
+    outline: none;
+    font-weight: 500;
+    &:focus {
+      border-color: $primary-blue;
+      box-shadow: 0 0 0 2px rgba($primary-blue, 0.2);
+    }
+  }
+
+  .btn-secondary {
+    background: linear-gradient(90deg, $primary-purple, $primary-blue);
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba($primary-purple, 0.3);
+    }
+  }
+
+  .no-data {
+    text-align: center;
+    padding: 2rem;
+    color: $text-light;
+  }
+}
+
+/* --- Loader --- */
+.loader {
+  text-align: center;
+  color: $text-light;
+  padding: 2rem;
+}
+
+/* --- Modal Overlay --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1200;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+// --- Estilos del Modal ---
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: $background-dark;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-container {
+  background: linear-gradient(145deg, #ffffff, #f3f4f6);
+  border-radius: $border-radius;
+  width: 95%;
+  max-width: 600px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  animation: scaleIn 0.4s ease-in-out;
+  color: $text-dark;
+  overflow: hidden;
+}
+
+.modal-header {
+  background: linear-gradient(to right, $primary-color, $accent-color);
+  color: $text-light;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  .close-button {
+    background: transparent;
+    border: none;
+    font-size: 1.8rem;
+    color: $text-light;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    &:hover {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.modal-body {
+  padding: 1.5rem;
+  background-color: #f9fafb;
+
+  .detail-group {
+    margin-bottom: 1rem;
+
+    strong {
+      color: $primary-color;
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    span, p {
+      color: $text-dark;
+      font-size: 0.95rem;
+    }
+  }
+
+  .status-badge {
+    background-color: $secondary-color;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+
+  .product-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(99, 102, 241, 0.15);
+      }
+
+      .product-name {
+        font-weight: 600;
+        color: $primary-color;
+      }
+
+      .product-details {
+        font-size: 0.9rem;
+        color: $text-dark;
+      }
+    }
+  }
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  background-color: #f3f4f6;
+  padding: 1rem 1.5rem;
+
+  .btn-primary {
+    background: linear-gradient(to right, $primary-color, $accent-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+  
+}
+
+/* --- Animaciones --- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* --- Responsividad --- */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 1rem;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+
+    th, td {
+      white-space: nowrap;
+    }
+  }
+
+  .modal {
+    width: 95%;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}

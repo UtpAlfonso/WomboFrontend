@@ -1,0 +1,349 @@
+/* Estilos generales */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  padding: 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Tarjeta del formulario */
+.register-container form {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 420px;
+  animation: fadeInUp 1s ease;
+}
+
+/* Título */
+.register-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+  font-size: 26px;
+  font-weight: 600;
+  position: relative;
+}
+
+.register-container h2::after {
+  content: "";
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff7e5f, #feb47b);
+  display: block;
+  margin: 8px auto 0;
+  border-radius: 5px;
+}
+
+/* Grupo de inputs */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  outline: none;
+  background: #fafafa;
+}
+
+/* Efecto al enfocar */
+.form-group input:focus {
+  border-color: #ff7e5f;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(255, 126, 95, 0.2);
+  transform: scale(1.02);
+}
+
+/* Botón de registro */
+button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+  background: linear-gradient(135deg, #feb47b, #ff7e5f);
+  box-shadow: 0 5px 15px rgba(255, 126, 95, 0.4);
+  transform: translateY(-3px);
+}
+
+button[type="submit"]:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Mensajes */
+.message {
+  text-align: center;
+  font-size: 14px;
+  padding: 8px;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+.error-message {
+  background: #ffe1e1;
+  color: #d9534f;
+  border: 1px solid #d9534f;
+}
+
+.success-message {
+  background: #e6ffed;
+  color: #28a745;
+  border: 1px solid #28a745;
+}
+
+/* Link de login */
+.register-container p {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.register-container a {
+  color: #ff7e5f;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.register-container a:hover {
+  color: #e14d2a;
+  text-decoration: underline;
+}
+/* Reset para evitar desbordes */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Fondo a pantalla completa */
+html, body {
+  height: 100%;
+  width: 100%;
+  border-box:0;
+  box-sizing: none;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin:0;
+  padding:0;
+  box-sizing: none;
+}
+
+/* Contenedor */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Tarjeta del formulario */
+.register-container form {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 420px;
+  animation: fadeInUp 1s ease;
+}
+
+/* Título */
+.register-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+  font-size: 26px;
+  font-weight: 600;
+  position: relative;
+}
+
+.register-container h2::after {
+  content: "";
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff7e5f, #feb47b);
+  display: block;
+  margin: 8px auto 0;
+  border-radius: 5px;
+}
+
+/* Grupo de inputs */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  outline: none;
+  background: #fafafa;
+  box-sizing: border-box; /* <-- evita que se salgan */
+}
+
+/* Efecto al enfocar */
+.form-group input:focus {
+  border-color: #ff7e5f;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(255, 126, 95, 0.2);
+  transform: scale(1.02);
+}
+
+/* Botón de registro */
+button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+  background: linear-gradient(135deg, #feb47b, #ff7e5f);
+  box-shadow: 0 5px 15px rgba(255, 126, 95, 0.4);
+  transform: translateY(-3px);
+}
+
+button[type="submit"]:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Mensajes */
+.message {
+  text-align: center;
+  font-size: 14px;
+  padding: 8px;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+.error-message {
+  background: #ffe1e1;
+  color: #d9534f;
+  border: 1px solid #d9534f;
+}
+
+.success-message {
+  background: #e6ffed;
+  color: #28a745;
+  border: 1px solid #28a745;
+}
+
+/* Link de login */
+.register-container p {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.register-container a {
+  color: #ff7e5f;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.register-container a:hover {
+  color: #e14d2a;
+  text-decoration: underline;
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsividad */
+@media (max-width: 500px) {
+  .register-container form {
+    padding: 25px 20px;
+  }
+
+  .register-container h2 {
+    font-size: 22px;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsividad */
+@media (max-width: 500px) {
+  .register-container form {
+    padding: 25px 20px;
+  }
+
+  .register-container h2 {
+    font-size: 22px;
+  }
+}

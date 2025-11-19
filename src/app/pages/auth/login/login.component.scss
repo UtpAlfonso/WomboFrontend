@@ -1,0 +1,212 @@
+// Para que las animaciones y el diseño se vean geniales, importa una fuente moderna como Poppins.
+// Coloca esto al inicio de tu archivo styles.scss global si aún no lo has hecho.
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/*-----------------------------------------
+|               VARIABLES                 |
+|  ¡Cambia estos valores para personalizar |
+|           fácilmente el tema!           |
+-----------------------------------------*/
+$font-family: 'Poppins', sans-serif;
+$primary-color: #6a11cb;      // Morado fantasía
+$secondary-color: #2575fc;    // Azul vibrante
+$accent-color: #ffde59;       // Amarillo para detalles
+$error-color: #e74c3c;        // Rojo para errores
+$text-color-dark: #333;
+$text-color-light: #f8f9fa;
+$background-gradient: linear-gradient(135deg, #f2f6ff 0%, #e6e9f0 100%);
+$border-radius: 15px;
+$card-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+$transition-speed: 0.3s ease-in-out;
+
+/*-----------------------------------------
+|              ANIMACIONES                |
+|       La magia detrás del movimiento    |
+-----------------------------------------*/
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba($secondary-color, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba($secondary-color, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba($secondary-color, 0);
+  }
+}
+
+/*-----------------------------------------
+|             ESTILOS GENERALES           |
+-----------------------------------------*/
+// Contenedor principal que centra la tarjeta
+.login-page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: $background-gradient;
+  padding: 20px;
+  font-family: $font-family;
+}
+
+// La tarjeta de login
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background-color: rgba(255, 255, 255, 0.7); // Efecto translúcido
+  border: none;
+  border-radius: $border-radius;
+  box-shadow: $card-shadow;
+  backdrop-filter: blur(10px); // Efecto vidrio esmerilado
+  animation: fadeInUp 0.8s ease-out forwards;
+
+  .card-body {
+    padding: 2.5rem; // Más espaciado interno
+  }
+
+  // Título con gradiente
+  .card-title {
+    font-weight: 600;
+    font-size: 2rem;
+    background: linear-gradient(45deg, $primary-color, $secondary-color);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/*-----------------------------------------
+|           ESTILOS DEL FORMULARIO        |
+-----------------------------------------*/
+.form-floating {
+  // Mejora para la etiqueta flotante
+  > .form-control:focus ~ label,
+  > .form-control:not(:placeholder-shown) ~ label {
+    color: $primary-color;
+    transform: scale(.85) translateY(-.8rem) translateX(.15rem);
+  }
+
+  > label {
+    color: #6c757d;
+  }
+}
+
+.form-control {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  transition: all $transition-speed;
+  height: 58px; // Altura fija para consistencia
+
+  &:focus {
+    background-color: #fff;
+    border-color: $secondary-color;
+    box-shadow: 0 0 0 4px rgba($secondary-color, 0.2);
+  }
+
+  // Estilo para campos inválidos
+  &.is-invalid {
+    border-color: $error-color;
+    &:focus {
+      box-shadow: 0 0 0 4px rgba($error-color, 0.2);
+    }
+  }
+}
+
+// Mensajes de error y alertas
+.invalid-feedback, .alert {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+.alert-danger {
+  background-color: rgba($error-color, 0.1);
+  border: 1px solid rgba($error-color, 0.2);
+  color: $error-color;
+  border-radius: 8px;
+}
+
+/*-----------------------------------------
+|            BOTONES Y ENLACES            |
+-----------------------------------------*/
+.btn {
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 0.8rem 1rem;
+  transition: all $transition-speed;
+}
+
+// Botón principal de "Iniciar Sesión"
+.btn-primary {
+  background: linear-gradient(45deg, $primary-color, $secondary-color);
+  border: none;
+  color: $text-color-light;
+  box-shadow: 0 4px 15px rgba($primary-color, 0.2);
+  animation: pulse 2s infinite;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba($secondary-color, 0.3);
+    animation-play-state: paused; // Pausa el pulso al hacer hover
+  }
+
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    animation: none;
+  }
+}
+
+// Botón secundario de "Crear cuenta"
+.btn-outline-secondary {
+  border-color: $primary-color;
+  color: $primary-color;
+
+  &:hover {
+    background-color: $primary-color;
+    color: $text-color-light;
+  }
+}
+
+// Enlaces
+a {
+  color: $secondary-color;
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover {
+    color: $primary-color;
+    text-decoration: underline;
+  }
+}
+
+// Línea separadora
+hr {
+  border-color: rgba($text-color-dark, 0.1);
+}
+
+// Clase para la animación de error
+.shake-error {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}

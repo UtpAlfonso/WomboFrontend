@@ -1,0 +1,84 @@
+$sidebar-width: 260px;
+$main-bg-color: #f3f4f6;
+
+// CONTENEDOR PRINCIPAL
+.admin-layout-container {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  background-color: $main-bg-color;
+}
+
+// CONTENIDO PRINCIPAL
+.admin-main-content {
+  flex-grow: 1;
+  margin-left: $sidebar-width;
+  padding: 2.5rem;
+  transition: margin-left 0.3s ease;
+}
+
+// BOTÓN Y OVERLAY OCULTOS EN DESKTOP
+.sidebar-toggle-button,
+.sidebar-overlay {
+  display: none;
+}
+
+// --- 📱 MEDIA QUERY para tablets y móviles ---
+@media (max-width: 992px) {
+  .admin-main-content {
+    margin-left: 0;
+    width: 100%;
+    padding: 1.5rem;
+    padding-top: 70px; // espacio para el botón hamburguesa
+  }
+
+  // Botón hamburguesa visible
+  .sidebar-toggle-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1400;
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    width: 44px;
+    height: 44px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease;
+    &:hover {
+      background-color: #4338ca;
+    }
+  }
+
+  // Overlay visible solo si el sidebar está abierto
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1200;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  // Cuando el sidebar está abierto
+  .admin-layout-container.sidebar-open {
+    .sidebar-overlay {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+// Animación suave del overlay
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

@@ -1,0 +1,42 @@
+<div class="page-container">
+  <div class="checkout-header">
+    <h1>Resumen de tu Compra</h1>
+    <p>Estás a un solo paso de completar tu pedido. Serás redirigido a la página segura de Mercado Pago.</p>
+  </div>
+
+  <div *ngIf="isLoading" class="loader">Cargando tu resumen...</div>
+
+  <div *ngIf="!isLoading && cart" class="checkout-layout">
+    <!-- Sección izquierda: Detalles del Pedido -->
+    <div class="order-details-section">
+      <h2>Detalles de tu Pedido</h2>
+      <div class="order-summary-card">
+        <ul class="summary-item-list">
+          <li *ngFor="let item of cart.items">
+            <span>{{ item.productoNombre }} x{{ item.cantidad }}</span>
+            <span>{{ item.subtotal | currency:'S/.' }}</span>
+          </li>
+        </ul>
+        <div class="summary-total">
+          <span>Total a Pagar:</span>
+          <span class="total-amount">{{ cart.total | currency:'S/.' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección derecha: Botón de Pago -->
+    <div class="payment-section">
+      <h2>Finalizar Compra</h2>
+      <div class="payment-card">
+        <!-- Contenedor donde Mercado Pago renderizará su botón de pago -->
+        <div class="checkout-btn-container">
+          <div *ngIf="isPreferenceLoading" class="preference-loader">
+            <div class="spinner"></div>
+            Generando link de pago seguro...
+          </div>
+        </div>
+        <small class="payment-disclaimer">Serás redirigido a un entorno 100% seguro de Mercado Pago.</small>
+      </div>
+    </div>
+  </div>
+</div>

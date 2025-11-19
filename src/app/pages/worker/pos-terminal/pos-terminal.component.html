@@ -1,0 +1,57 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>Terminal de Punto de Venta (POS)</h1>
+    <p>Registra ventas realizadas en la tienda física.</p>
+  </div>
+
+  <div class="pos-layout">
+    <!-- Columna Izquierda: Búsqueda y Carrito -->
+    <div class="pos-main">
+      <!-- Buscador de Productos -->
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="Buscar producto por nombre o SKU..." [formControl]="searchControl">
+        <div class="search-results" *ngIf="(searchResults$ | async) as results">
+          <div *ngIf="results.length > 0" class="results-list">
+            <div *ngFor="let product of results" class="result-item" (click)="addProductToCart(product)">
+              <span>{{ product.nombre }}</span>
+              <small>Stock: {{ product.stock }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carrito de Venta -->
+      <div class="cart-container">
+        <h4>Carrito de Venta</h4>
+        <div *ngIf="cart.length === 0" class="empty-cart">
+          <p>El carrito está vacío. Busca y añade productos para iniciar una venta.</p>
+        </div>
+        <ul *ngIf="cart.length > 0" class="cart-list">
+          <li *ngFor="let item of cart">
+            <div class="item-info">
+              <span class="item-name">{{ item.nombre }}</span>
+              <span class="item-price">{{ item.precio | currency:'S/.' }}</span>
+            </div>
+            <div class="item-controls">
+              <button (click)="updateQuantity(item, -1)">-</button>
+              <span class="item-quantity">{{ item.quantity }}</span>
+              <button (click)="updateQuantity(item, 1)">+</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Columna Derecha: Resumen y Finalización -->
+    <div class="pos-summary">
+      <h4>Resumen de la Venta</h4>
+      <div class="summary-total">
+        <span>TOTAL</span>
+        <span class="total-amount">{{ total | currency:'S/.' }}</span>
+      </div>
+      <button class="btn-finalize-sale" [disabled]="cart.length === 0" (click)="finalizeSale()">
+        Finalizar Venta
+      </button>
+    </div>
+  </div>
+</div>

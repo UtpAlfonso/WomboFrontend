@@ -1,0 +1,70 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #4a148c; /* Un color morado para la juguetería */
+  color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.navbar-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.navbar-links a:hover, .active-link {
+  color: #ffca28; /* Un color amarillo para resaltar */
+  text-decoration: underline;
+}
+
+.nav-button, .nav-button-special {
+  background: none;
+  border: 1px solid white;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-button:hover {
+  background-color: white;
+  color: #4a148c;
+}
+
+.nav-button-special {
+  background-color: #ffca28;
+  color: #333;
+  border-color: #ffca28;
+}
+
+.nav-button-special:hover {
+  background-color: #ffb300;
+}
+
+.logout-link {
+  cursor: pointer;
+  color: #dc3545 !important; // Rojo de Bootstrap para acciones destructivas
+  &:hover {
+    background-color: #dc3545;
+    color: white !important;
+  }
+}

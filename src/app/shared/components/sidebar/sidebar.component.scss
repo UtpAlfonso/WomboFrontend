@@ -1,0 +1,150 @@
+$sidebar-width: 260px;
+$sidebar-bg: #1e293b;
+$sidebar-text-color: #cbd5e1;
+$sidebar-active-bg: #334155;
+$sidebar-active-border: #818cf8;
+$logo-text-color: #ffffff;
+
+// El host siempre visible (no se mueve)
+:host {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: $sidebar-width;
+  z-index: 1300;
+}
+
+// Sidebar base
+.sidebar {
+  width: 100%;
+  height: 100%;
+  background-color: $sidebar-bg;
+  color: $sidebar-text-color;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(0); // visible por defecto en desktop
+}
+
+// ✅ En móviles: se oculta por defecto
+@media (max-width: 992px) {
+  .sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1300;
+  }
+
+  // Cuando el sidebar está abierto (Angular añade .is-open)
+  .sidebar.is-open {
+    transform: translateX(0);
+  }
+}
+
+// --- Estilos visuales (igual que antes) ---
+.sidebar-header {
+  padding: 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid $sidebar-active-bg;
+
+  a {
+    text-decoration: none;
+  }
+
+  h3 {
+    margin: 0;
+    color: $logo-text-color;
+    font-weight: 700;
+  }
+
+  span {
+    font-size: 0.9rem;
+    color: #94a3b8;
+  }
+}
+
+.sidebar-nav {
+  flex-grow: 1;
+  padding: 1rem 0;
+
+  ul { list-style: none; padding: 0; margin: 0; }
+
+  a {
+    display: block;
+    padding: 1rem 1.5rem;
+    margin: 0.25rem 1rem;
+    color: $sidebar-text-color;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
+
+    &:hover { background-color: $sidebar-active-bg; color: white; }
+
+    &.active {
+      background-color: $sidebar-active-bg;
+      color: white;
+      font-weight: 600;
+      border-left: 4px solid $sidebar-active-border;
+    }
+  }
+}
+
+.sidebar-footer {
+  padding: 1rem;
+  border-top: 1px solid $sidebar-active-bg;
+
+  .user-profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: $sidebar-active-border;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+
+  .user-name {
+    color: white;
+    font-weight: 600;
+  }
+
+  .user-email {
+    font-size: 0.8rem;
+    color: #94a3b8;
+  }
+
+  .logout-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: $sidebar-active-bg;
+    border: none;
+    color: $sidebar-text-color;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: lighten($sidebar-active-bg, 5%);
+    }
+  }
+}
