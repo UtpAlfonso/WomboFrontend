@@ -1,0 +1,5 @@
+{
+  "root": "dist/jugueteria",
+  "clean_urls": true,
+  "fallback": "/index.html"
+}
