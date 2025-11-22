@@ -73,7 +73,20 @@ export class ProductCatalogComponent implements OnInit {
       })
     );
   }
-
+  // ==========================================
+  // MÉTODO NUEVO (Igual que en los otros componentes)
+  // ==========================================
+  resolveImageUrl(path: string | undefined): string {
+    if (!path) return '';
+    
+    // Si ya es una URL completa (Cloudinary), la devolvemos tal cual
+    if (path.startsWith('http')) {
+      return path;
+    }
+    
+    // Si es local, le agregamos el dominio del servidor
+    return `${this.serverBaseUrl}${path.startsWith('/') ? '' : '/'}${path}`;
+  }
   /**
    * Añade un producto al carrito.
    */

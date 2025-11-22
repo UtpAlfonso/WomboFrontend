@@ -16,7 +16,11 @@
         <div class="cart-items-list">
           <div *ngFor="let item of cart.items" class="cart-item-card">
             <div class="item-image">
-              <img *ngIf="item.productoImageUrl" [src]="(serverBaseUrl + item.productoImageUrl) | safeUrl" alt="{{ item.productoNombre }}">
+             <img *ngIf="item.productoImageUrl" 
+                   [src]="resolveImageUrl(item.productoImageUrl) | safeUrl" 
+                   alt="{{ item.productoNombre }}">
+                   
+              <!-- Si no hay imagen, placeholder -->
               <img *ngIf="!item.productoImageUrl" src="assets/images/placeholder.png" alt="Imagen no disponible">
             </div>
             <div class="item-details">

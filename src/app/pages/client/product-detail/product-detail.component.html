@@ -8,8 +8,16 @@
     <div class="product-detail-layout">
       <!-- Left Column: Product Image -->
       <div class="product-image-section">
-        <img *ngIf="product.imageUrl" [src]="(serverBaseUrl + product.imageUrl) | safeUrl" alt="{{ product.nombre }}" class="main-image">
-        <img *ngIf="!product.imageUrl" src="assets/images/placeholder.png" alt="Imagen no disponible" class="main-image">
+         <!-- CAMBIO AQUÍ: Usamos resolveImageUrl(product.imageUrl) -->
+        <img *ngIf="product.imageUrl" 
+             [src]="resolveImageUrl(product.imageUrl) | safeUrl" 
+             alt="{{ product.nombre }}" 
+             class="main-image">
+             
+        <img *ngIf="!product.imageUrl" 
+             src="assets/images/placeholder.png" 
+             alt="Imagen no disponible" 
+             class="main-image">
       </div>
       
       <!-- Right Column: Product Info and Actions -->

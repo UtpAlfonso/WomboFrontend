@@ -73,6 +73,22 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
+   // ==========================================
+  // AGREGAR ESTE MÉTODO (Igual que en Home)
+  // ==========================================
+  resolveImageUrl(path: string | undefined): string {
+    if (!path) return '';
+    
+    // Si la URL ya empieza con http (ej. Cloudinary), devolverla tal cual
+    if (path.startsWith('http')) {
+      return path;
+    }
+    
+    // Si es una ruta local antigua, agregarle el dominio del backend
+    return `${this.serverBaseUrl}${path.startsWith('/') ? '' : '/'}${path}`;
+  }
+
+
   /**
    * Handles adding the selected quantity of the product to the cart.
    */

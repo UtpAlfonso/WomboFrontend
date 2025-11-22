@@ -214,7 +214,7 @@
       <!-- Iteramos sobre las reseñas cargadas -->
       <div *ngFor="let review of recentReviews" class="review-card">
         <div class="review-card__product">
-         <img *ngIf="review.productoImageUrl" [src]="(serverBaseUrl + review.productoImageUrl) | safeUrl" alt="{{ review.productoNombre }}" class="product-avatar">
+       <img *ngIf="review.productoImageUrl" [src]="resolveImageUrl(review.productoImageUrl) | safeUrl" alt="{{ review.productoNombre }}" class="product-avatar">
           <img *ngIf="!review.productoImageUrl" src="assets/images/placeholder.png" alt="Imagen no disponible" class="product-avatar">
           <span class="product-name">{{ review.productoNombre }}</span>
         </div>
