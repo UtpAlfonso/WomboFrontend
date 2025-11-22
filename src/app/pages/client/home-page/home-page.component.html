@@ -150,7 +150,7 @@
       <div *ngFor="let product of products.slice(0, 8)" class="product-card">
         <a [routerLink]="['/product', product.id]" class="product-link">
           <div class="product-image">
-            <img *ngIf="product.imageUrl" [src]="(serverBaseUrl + product.imageUrl) | safeUrl" alt="{{ product.nombre }}">
+            <img *ngIf="product.imageUrl" [src]="resolveImageUrl(product.imageUrl) | safeUrl" alt="{{ product.nombre }}">
             <img *ngIf="!product.imageUrl" src="assets/images/placeholder.png" alt="Imagen no disponible">
           </div>
           <div class="product-info">

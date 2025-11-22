@@ -53,7 +53,17 @@ chatInput = '';
 chatMessages: { from: 'user' | 'bot', text: string }[] = [
   { from: 'bot', text: '¡Hola! 👋 Soy WomboBot. ¿En qué puedo ayudarte?, Escribe palabras clave como: "hola", "precio", "envio", "horario", "ayuda".' }
 ];
-
+resolveImageUrl(path: string | undefined): string {
+    if (!path) return '';
+    
+    // Si la URL ya viene completa (Cloudinary), la devolvemos tal cual
+    if (path.startsWith('http')) {
+      return path;
+    }
+    
+    // Si es una ruta relativa (ej: /uploads/img.png), le pegamos el serverBaseUrl
+    return `${this.serverBaseUrl}${path.startsWith('/') ? '' : '/'}${path}`;
+  }
 toggleChat(): void {
   this.isChatOpen = !this.isChatOpen;
 
